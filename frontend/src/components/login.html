@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SpendEase</title>
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Login to SpendEase</h1>
+    </header>
+    <main>
+        <section class="login-container">
+            <form action=".././backend/src/components/login.php" method="POST">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+            <div>
+                <button id="google-login">Login with Google</button>
+                <button id="facebook-login">Login with Facebook</button>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 SpendEase. All rights reserved.</p>
+        <p><a href="../../privacy/privacy-policy.html">Privacy Policy</a> | <a href="../../privacy/terms-of-service.html">Terms of Service</a></p>
+    </footer>
+    <script src="../../js/login.js"></script>
+</body>
+</html>
