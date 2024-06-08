@@ -4,8 +4,8 @@ require_once 'vendor/autoload.php';
 session_start();
 
 $fb = new \Facebook\Facebook([
-  'app_id' => 'VOTRE_APP_ID',
-  'app_secret' => 'VOTRE_APP_SECRET',
+  'app_id' => '1397930070906342',
+  'app_secret' => '6d6256259cc502221934af312dddb07f',
   'default_graph_version' => 'v2.10',
 ]);
 
@@ -39,5 +39,5 @@ if (! isset($accessToken)) {
 $_SESSION['fb_access_token'] = (string) $accessToken;
 
 // Redirect to your homepage or elsewhere
-header('Location: /SpendEase/frontend/src/index.html');
+header('Location: https://spendeasesafe.com/frontend/src/index.html');
 exit();
