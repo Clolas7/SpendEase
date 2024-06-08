@@ -1,17 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const ctxExpenses = document.getElementById('expensesChart').getContext('2d');
-    const ctxIncomes = document.getElementById('incomesChart').getContext('2d');
-
-    fetch('../../backend/src/components/get_expenses.php')
+    fetch('/backend/src/components/get_report_data.php')
         .then(response => response.json())
         .then(data => {
+            const expensesData = data.expenses.map(item => item.total_amount);
+            const expensesLabels = data.expenses.map(item => `Category ${item.category_id}`);
+
+            const incomesData = data.incomes.map(item => item.total_amount);
+            const incomesLabels = data.incomes.map(item => item.source);
+
+            const ctxExpenses = document.getElementById('expensesChart').getContext('2d');
             new Chart(ctxExpenses, {
                 type: 'bar',
                 data: {
-                    labels: data.labels,
+                    labels: expensesLabels,
                     datasets: [{
                         label: 'Expenses',
-                        data: data.amounts,
+                        data: expensesData,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
                         borderColor: 'rgba(255, 99, 132, 1)',
                         borderWidth: 1
@@ -25,20 +29,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             });
-        });
 
-    fetch('../../backend/src/components/get_incomes.php')
-        .then(response => response.json())
-        .then(data => {
+            const ctxIncomes = document.getElementById('incomesChart').getContext('2d');
             new Chart(ctxIncomes, {
                 type: 'bar',
                 data: {
-                    labels: data.labels,
+                    labels: incomesLabels,
                     datasets: [{
                         label: 'Incomes',
-                        data: data.amounts,
-                        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                        borderColor: 'rgba(54, 162, 235, 1)',
+                        data: incomesData,
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
                         borderWidth: 1
                     }]
                 },
