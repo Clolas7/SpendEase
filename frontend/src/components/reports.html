@@ -34,6 +34,26 @@
         <section>
             <button id="export-btn">Export to CSV</button>
         </section>
+        <section>
+            <h2>Generate Report</h2>
+            <form id="report-form">
+                <div>
+                    <label for="month">Month:</label>
+                    <select id="month" name="month">
+                        <!-- Ajouter des options pour les mois -->
+                    </select>
+                </div>
+                <div>
+                    <label for="year">Year:</label>
+                    <input type="number" id="year" name="year" required>
+                </div>
+                <button type="submit">Generate Report</button>
+            </form>
+            <div id="report-results">
+                <!-- Les résultats du rapport seront affichés ici -->
+            </div>
+        </section>
+        
     </main>
     <footer>
         <p>&copy; 2024 SpendEase. All rights reserved.</p>

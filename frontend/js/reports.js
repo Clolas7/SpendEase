@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctxIncomes = document.getElementById('incomesChart').getContext('2d');
     const filterForm = document.getElementById('filter-form');
     const exportBtn = document.getElementById('export-btn');
+    const reportForm = document.getElementById('report-form');
 
     function fetchData(startDate = '', endDate = '') {
         fetch(`/backend/src/components/get_report_data.php?start_date=${startDate}&end_date=${endDate}`)
@@ -72,4 +73,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     fetchData(); // Fetch data without filters initially
+
+    reportForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        
+        fetch('/backend/src/components/generate_report.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            const reportResults = document.getElementById('report-results');
+            reportResults.innerHTML = '';
+            
+            data.forEach(expense => {
+                const expenseElement = document.createElement('div');
+                expenseElement.innerHTML = `
+                    <p>${expense.date}: ${expense.amount} - ${expense.description}</p>
+                `;
+                reportResults.appendChild(expenseElement);
+            });
+        });
+    });
 });
