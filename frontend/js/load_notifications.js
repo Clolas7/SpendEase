@@ -3,17 +3,25 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             const notificationsContainer = document.getElementById('notifications');
-            data.notifications.forEach(notification => {
-                const notificationElement = document.createElement('div');
-                notificationElement.classList.add('notification');
-                notificationElement.innerHTML = `
-                    <p>${notification.message}</p>
-                    <small>${new Date(notification.date_sent).toLocaleString()}</small>
-                    <button onclick="markAsRead(${notification.id})">Mark as Read</button>
-                    <button onclick="deleteNotification(${notification.id})">Delete</button>
-                `;
-                notificationsContainer.appendChild(notificationElement);
-            });
+            if (data.notifications) {
+                data.notifications.forEach(notification => {
+                    const notificationElement = document.createElement('div');
+                    notificationElement.classList.add('notification');
+                    notificationElement.innerHTML = `
+                        <p>${notification.message}</p>
+                        <small>${new Date(notification.date_sent).toLocaleString()}</small>
+                        <button onclick="markAsRead(${notification.id})">Mark as Read</button>
+                        <button onclick="deleteNotification(${notification.id})">Delete</button>
+                    `;
+                    notificationsContainer.appendChild(notificationElement);
+                });
+            } else if (data.error) {
+                notificationsContainer.innerHTML = `<p>${data.error}</p>`;
+            }
+        })
+        .catch(error => {
+            const notificationsContainer = document.getElementById('notifications');
+            notificationsContainer.innerHTML = `<p>Failed to load notifications: ${error.message}</p>`;
         });
 });
 
@@ -22,8 +30,18 @@ function markAsRead(id) {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=mark_read&id=${id}`
-    }).then(() => {
-        location.reload();
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert(data.message || 'Failed to mark notification as read.');
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error.message);
     });
 }
 
@@ -32,7 +50,17 @@ function deleteNotification(id) {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: `action=delete&id=${id}`
-    }).then(() => {
-        location.reload();
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            location.reload();
+        } else {
+            alert(data.message || 'Failed to delete notification.');
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error.message);
     });
 }
