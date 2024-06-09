@@ -92,6 +92,22 @@
             <div id="notifications">
                 <!-- Les notifications seront chargées ici -->
             </div>
+            <!-- Formulaire pour ajouter une notification -->
+            <form id="notification-form">
+                <input type="hidden" name="action" value="add">
+                <div>
+                    <label for="notification-type">Type:</label>
+                    <select id="notification-type" name="type" required>
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="notification-message">Message:</label>
+                    <input type="text" id="notification-message" name="message" required>
+                </div>
+                <button type="submit">Send Notification</button>
+            </form>
         </section>
         <!-- Section pour générer un rapport de dépenses -->
         <section>
@@ -114,7 +130,6 @@
             <h2>View Reports</h2>
             <a href="view_reports.html">Go to Reports</a>
         </section>
-        
     </main>
     <footer>
         <p>&copy; 2024 SpendEase. All rights reserved.</p>
@@ -149,7 +164,28 @@
                 }
             });
         });
+
+        // Gestion de la soumission du formulaire de notification
+        document.getElementById('notification-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            fetch('/backend/src/components/manage_notifications.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.message || 'Failed to send notification.');
+                }
+            })
+            .catch(error => {
+                alert('Error: ' + error.message);
+            });
+        });
     </script>
 </body>
 </html>
-

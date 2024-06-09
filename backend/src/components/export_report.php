@@ -48,3 +48,4 @@ foreach ($incomes_data as $income) {
 
 fclose($output);
 ?>
+

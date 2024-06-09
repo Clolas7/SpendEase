@@ -9,28 +9,38 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
     $source = $_POST['source'];
 
-    $query = "INSERT INTO incomes (user_id, amount, date, source) VALUES (?, ?, ?, ?)";
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param('iiss', $user_id, $amount, $date, $source);
+    try {
+        $query = "INSERT INTO incomes (user_id, amount, date, source) VALUES (?, ?, ?, ?)";
+        $stmt = $conn->prepare($query);
+        if (!$stmt) {
+            throw new Exception("Failed to prepare statement: " . $conn->error);
+        }
+        $stmt->bind_param('iiss', $user_id, $amount, $date, $source);
 
-    if ($stmt->execute()) {
-        // Fetch user email
-        $user_query = "SELECT email FROM users WHERE id = ?";
-        $user_stmt = $conn->prepare($user_query);
-        $user_stmt->bind_param('i', $user_id);
-        $user_stmt->execute();
-        $user_result = $user_stmt->get_result();
-        $user = $user_result->fetch_assoc();
+        if ($stmt->execute()) {
+            // Fetch user email
+            $user_query = "SELECT email FROM users WHERE id = ?";
+            $user_stmt = $conn->prepare($user_query);
+            if (!$user_stmt) {
+                throw new Exception("Failed to prepare statement: " . $conn->error);
+            }
+            $user_stmt->bind_param('i', $user_id);
+            $user_stmt->execute();
+            $user_result = $user_stmt->get_result();
+            $user = $user_result->fetch_assoc();
 
-        $to = $user['email'];
-        $subject = "New Income Recorded";
-        $message = "A new income of $amount has been recorded on $date.";
+            $to = $user['email'];
+            $subject = "New Income Recorded";
+            $message = "A new income of $amount has been recorded on $date.";
 
-        sendEmail($to, $subject, $message);
+            sendEmail($to, $subject, $message);
 
-        echo "Income recorded and notification sent successfully!";
-    } else {
-        echo "Error: " . $stmt->error;
+            echo json_encode(["status" => "success", "message" => "Income recorded and notification sent successfully!"]);
+        } else {
+            throw new Exception("Failed to execute statement: " . $stmt->error);
+        }
+    } catch (Exception $e) {
+        echo json_encode(["status" => "error", "message" => $e->getMessage()]);
     }
 }
 ?>
