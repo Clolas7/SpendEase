@@ -4,9 +4,9 @@ require_once 'vendor/autoload.php';
 session_start();
 
 $client = new Google_Client();
-$client->setClientId('VOTRE_CLIENT_ID');
-$client->setClientSecret('VOTRE_CLIENT_SECRET');
-$client->setRedirectUri('http://localhost/SpendEase/backend/src/components/google-callback.php');
+$client->setClientId('350239869325-gjhc0ajkrakq1ol1vbo7t6ov2mjhtdlh.apps.googleusercontent.com');
+$client->setClientSecret('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');
+$client->setRedirectUri('https://spendeasesafe.com/backend/src/components/google-callback.php');
 $client->addScope('email');
 $client->addScope('profile');
 
@@ -19,9 +19,9 @@ if (isset($_GET['code'])) {
 
     $_SESSION['user'] = $userInfo;
 
-    header('Location: /SpendEase/frontend/src/index.html');
+    header('Location: https://spendeasesafe.com/frontend/src/index.html');
     exit();
 } else {
-    header('Location: /SpendEase/frontend/src/index.html');
+    header('Location: https://spendeasesafe.com/frontend/src/index.html');
     exit();
 }
