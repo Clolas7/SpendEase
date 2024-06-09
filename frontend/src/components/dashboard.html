@@ -9,17 +9,18 @@
 </head>
 <body>
     <header>
-        <img src="../../img/Spendease_Ico/SpendEase1.ico" alt="SpendEase Logo" style="width: 100px;">
+        <img src="../../img/Spendease_Ico/SpendEase1 .ico" alt="SpendEase Logo" style="width: 100px;">
         <h1>Dashboard</h1>
     </header>
     <main>
+        <!-- Section pour enregistrer une dépense -->
         <section>
             <h2>Record Expense</h2>
             <form action="/backend/src/components/record_expense.php" method="POST">
                 <div>
                     <label for="category_id">Category:</label>
                     <select id="category_id" name="category_id" required>
-                        <!-- Categories options will be loaded here -->
+                        <!-- Les options des catégories seront chargées ici -->
                     </select>
                 </div>
                 <div>
@@ -37,6 +38,7 @@
                 <button type="submit">Record Expense</button>
             </form>
         </section>
+        <!-- Section pour enregistrer un revenu -->
         <section>
             <h2>Record Income</h2>
             <form action="/backend/src/components/record_income.php" method="POST">
@@ -55,13 +57,14 @@
                 <button type="submit">Record Income</button>
             </form>
         </section>
+        <!-- Section pour définir un quota de dépenses -->
         <section>
             <h2>Set Spending Quota</h2>
             <form action="/backend/src/components/set_quota.php" method="POST">
                 <div>
                     <label for="category_id">Category:</label>
                     <select id="category_id" name="category_id" required>
-                        <!-- Categories options will be loaded here -->
+                        <!-- Les options des catégories seront chargées ici -->
                     </select>
                 </div>
                 <div>
@@ -71,6 +74,7 @@
                 <button type="submit">Set Quota</button>
             </form>
         </section>
+        <!-- Section pour mettre à jour les informations utilisateur, supprimer le compte et se déconnecter -->
         <section>
             <form action="/backend/src/delete_and_logout/update_user.php" method="POST">
                 <button type="submit">Update Info</button>
@@ -82,11 +86,28 @@
                 <button type="submit">Logout</button>
             </form>
         </section>
+        <!-- Section pour afficher les notifications -->
         <section>
             <h2>Notifications</h2>
             <div id="notifications">
                 <!-- Les notifications seront chargées ici -->
             </div>
+        </section>
+        <!-- Section pour générer un rapport de dépenses -->
+        <section>
+            <h2>Generate Expense Report</h2>
+            <form id="generate-report-form">
+                <div>
+                    <label for="start_date">Start Date:</label>
+                    <input type="date" id="start_date" name="start_date" required>
+                </div>
+                <div>
+                    <label for="end_date">End Date:</label>
+                    <input type="date" id="end_date" name="end_date" required>
+                </div>
+                <button type="submit">Generate Report</button>
+            </form>
+            <div id="report-results"></div>
         </section>
     </main>
     <footer>
@@ -94,5 +115,34 @@
         <p><a href="../../privacy/privacy-policy.html">Privacy Policy</a> | <a href="../../privacy/terms-of-service.html">Terms of Service</a></p>
     </footer>
     <script src="../../js/load_notifications.js"></script>
+    <script>
+        document.getElementById('generate-report-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const startDate = document.getElementById('start_date').value;
+            const endDate = document.getElementById('end_date').value;
+            fetch('/backend/src/components/generate_expense_report.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `start_date=${startDate}&end_date=${endDate}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                const reportResults = document.getElementById('report-results');
+                reportResults.innerHTML = '';
+                if (data.error) {
+                    reportResults.textContent = data.error;
+                } else {
+                    data.forEach(expense => {
+                        const expenseElement = document.createElement('div');
+                        expenseElement.innerHTML = `
+                            <p>${expense.date} - ${expense.category}: ${expense.amount}</p>
+                            <p>${expense.description}</p>
+                        `;
+                        reportResults.appendChild(expenseElement);
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

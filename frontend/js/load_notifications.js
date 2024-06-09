@@ -3,14 +3,14 @@ document.addEventListener("DOMContentLoaded", function() {
         .then(response => response.json())
         .then(data => {
             const notificationsContainer = document.getElementById('notifications');
-            data.notifications.forEach(notification => {
+            data.forEach(notification => {
                 const notificationElement = document.createElement('div');
                 notificationElement.classList.add('notification');
                 notificationElement.innerHTML = `
                     <p>${notification.message}</p>
                     <small>${new Date(notification.date_sent).toLocaleString()}</small>
-                    <button onclick="markAsRead(${notification.id})">Mark as Read</button>
-                    <button onclick="deleteNotification(${notification.id})">Delete</button>
+                    <button onclick="markAsRead(${notification.id})">Marquer comme lu</button>
+                    <button onclick="deleteNotification(${notification.id})">Supprimer</button>
                 `;
                 notificationsContainer.appendChild(notificationElement);
             });
