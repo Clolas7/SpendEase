@@ -6,49 +6,37 @@
     <title>Login - SpendEase</title>
     <meta name="description" content="SpendEase helps you manage your finances effortlessly. Login to track your expenses, create budgets, and save more.">
     <meta name="keywords" content="SpendEase, finance management, budget tracking, expense tracking, savings">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/login/Style L.css">
     <link rel="icon" type="image/ico" href="../../img/Spendease_Ico/SpendEase-logo.ico">
 </head>
 <body>
     <header>
         <img src="../../img/Spendease_Ico/SpendEase1 .ico" alt="SpendEase Logo" style="width: 100px;">
-        <h1>Login to SpendEase</h1>
+        <h1 class="text-3xl font-bold">Login to SpendEase</h1>
     </header>
     <main>
         <section class="login-container">
-            <form action="/backend/src/components/login.php" method="POST">
-                <div>
-                    <label for="identifier">Username, Email or Phone:</label>
-                    <input type="text" id="identifier" name="identifier" required>
+            <div class="space-y-2 text-center">
+                <p class="highlighted">Sign in to your account</p>
+            </div>
+            <form class="space-y-4" action="/backend/src/components/login.php" method="POST">
+                <div class="space-y-2">
+                    <input id="identifier" type="text" placeholder="Enter your username, email or phone" name="identifier" required>
                 </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="space-y-2">
+                    <input id="password" type="password" placeholder="Enter your password" name="password" required>
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit" class="w-full">Login</button>
             </form>
-            <div>
-                <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=350239869325-gjhc0ajkrakq1ol1vbo7t6ov2mjhtdlh.apps.googleusercontent.com&redirect_uri=https://spendeasesafe.com/backend/src/components/google-callback.php&scope=email%20profile&access_type=online" class="btn btn-google">Login with Google</a>
-                <a href="https://www.facebook.com/v9.0/dialog/oauth?client_id=1397930070906342&redirect_uri=https://spendeasesafe.com/backend/src/components/facebook-callback.php&scope=email" class="btn btn-facebook">Login with Facebook</a>
-                <button id="whatsapp-login" onclick="loginWithWhatsApp()">Login with WhatsApp</button>
+            <div class="text-center">
+                <a href="./signup.html" class="btn btn-signup">Sign Up</a>
             </div>
         </section>
-        <form id="whatsapp-login-form" action="/backend/src/components/whatsapp-login.php" method="POST" style="display:none;">
-            <label for="phone">Enter your phone number:</label>
-            <input type="tel" id="phone" name="phone" required>
-            <button type="submit">Send OTP</button>
-
     </main>
     <footer>
         <p>&copy; 2024 SpendEase. All rights reserved.</p>
         <p><a href="../../privacy/privacy-policy.html">Privacy Policy</a> | <a href="../../privacy/terms-of-service.html">Terms of Service</a></p>
     </footer>
-    <script src="../../js/login.js"></script>
-    <script>
-        function loginWithWhatsApp() {
-            document.getElementById('whatsapp-login-form').style.display = 'block';
-        }
-    </script>
+    <script src="../../js/login.js"></script>  
 </body>
 </html>

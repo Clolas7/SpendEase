@@ -6,49 +6,40 @@
     <title>Sign Up - SpendEase</title>
     <meta name="description" content="SpendEase helps you manage your finances effortlessly. Sign up to track your expenses, create budgets, and save more.">
     <meta name="keywords" content="SpendEase, finance management, budget tracking, expense tracking, savings">
-    <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/signup/Style S.css">
     <link rel="icon" type="image/ico" href="../../img/Spendease_Ico/SpendEase-logo.ico">
 </head>
 <body>
     <header>
         <img src="../../img/Spendease_Ico/SpendEase1 .ico" alt="SpendEase Logo" style="width: 100px;">
-        <h1>Sign Up to SpendEase</h1>
+        <h1 class="text-3xl font-bold">Sign Up to SpendEase</h1>   
     </header>
     <main>
         <section class="signup-container">
             <form action="/backend/src/components/signup.php" method="POST">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" required>
+                <div class="space-y-2">
+                    <input style="color:Yellow;" id="username" type="text" placeholder="Abronlepur07" name="username" required>
                 </div>
-                <div>
-                    <label for="fullname">Full Name:</label>
-                    <input type="text" id="fullname" name="fullname" required>
+                <div class="space-y-2">
+                    <input style="color:Yellow;" id="fullname" type="text" placeholder="Kouadio Rene Yao" name="fullname" required>
                 </div>
-                <div>
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" id="dob" name="dob" required>
+                <div class="space-y-2">
+                    <input style="color:Yellow;" id="dob" type="date" name="dob" required>
                 </div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email">
+                <div class="space-y-2">
+                    <input style="color:Yellow;" id="email" type="tel" placeholder="Enter your email" name="email" required>
                 </div>
-                <div>
-                    <label for="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone">
+                <div class="space-y-2">
+                    <input style="color:Yellow;" id="phone" type="tel" placeholder="Enter your number" name="number" required>
                 </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" required>
+                <div class="space-y-2">
+                    <input style="color:Yellow;" id="password" type="password" placeholder="Enter your password" name="password" required>
                 </div>
                 <button type="submit">Sign Up</button>
+                <button id="whatsapp-signup" onclick="signupWithWhatsApp()" class="btn btn-whatsapp">WhatsApp</button>
+                <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=350239869325-gjhc0ajkrakq1ol1vbo7t6ov2mjhtdlh.apps.googleusercontent.com&redirect_uri=https://spendeasesafe.com/backend/src/components/google-callback.php&scope=email%20profile&access_type=online" class="btn btn-google">Google</a>
+                <a href="https://www.facebook.com/v9.0/dialog/oauth?client_id=1397930070906342&redirect_uri=https://spendeasesafe.com/backend/src/components/facebook-callback.php&scope=email" class="btn btn-facebook">Facebook</a>
             </form>
-            <div>
-                <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=350239869325-gjhc0ajkrakq1ol1vbo7t6ov2mjhtdlh.apps.googleusercontent.com&redirect_uri=https://spendeasesafe.com/backend/src/components/google-callback.php&scope=email%20profile&access_type=online" class="btn btn-google">Sign Up with Google</a>
-                <a href="https://www.facebook.com/v9.0/dialog/oauth?client_id=1397930070906342&redirect_uri=https://spendeasesafe.com/backend/src/components/facebook-callback.php&scope=email" class="btn btn-facebook">Sign Up with Facebook</a>
-                <button id="whatsapp-signup" onclick="signupWithWhatsApp()">Sign Up with WhatsApp</button>
-            </div>
         </section>
         <form id="whatsapp-signup-form" action="/backend/src/components/whatsapp-login.php" method="POST" style="display:none;">
             <label for="phone">Enter your phone number:</label>
