@@ -1,0 +1,19 @@
+{
+    "name": "chris/spend-ease",
+    "description": "A web application for managing monthly expenses and budgets",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Chris\\SpendEase\\": "backend/src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Clolas7",
+            "email": "mickeyapex.mo96@gmail.com"
+        }
+    ],
+    "require": {
+        "twilio/sdk": "^8.1"
+    }
+}

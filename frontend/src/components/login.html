@@ -28,13 +28,24 @@
             <div>
                 <a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=350239869325-gjhc0ajkrakq1ol1vbo7t6ov2mjhtdlh.apps.googleusercontent.com&redirect_uri=https://spendeasesafe.com/backend/src/components/google-callback.php&scope=email%20profile&access_type=online" class="btn btn-google">Login with Google</a>
                 <a href="https://www.facebook.com/v9.0/dialog/oauth?client_id=1397930070906342&redirect_uri=https://spendeasesafe.com/backend/src/components/facebook-callback.php&scope=email" class="btn btn-facebook">Login with Facebook</a>
+                <button id="whatsapp-login" onclick="loginWithWhatsApp()">Login with WhatsApp</button>
             </div>
         </section>
+        <form id="whatsapp-login-form" action="/backend/src/components/whatsapp-login.php" method="POST" style="display:none;">
+            <label for="phone">Enter your phone number:</label>
+            <input type="tel" id="phone" name="phone" required>
+            <button type="submit">Send OTP</button>
+
     </main>
     <footer>
         <p>&copy; 2024 SpendEase. All rights reserved.</p>
         <p><a href="../../privacy/privacy-policy.html">Privacy Policy</a> | <a href="../../privacy/terms-of-service.html">Terms of Service</a></p>
     </footer>
     <script src="../../js/login.js"></script>
+    <script>
+        function loginWithWhatsApp() {
+            document.getElementById('whatsapp-login-form').style.display = 'block';
+        }
+    </script>
 </body>
 </html>
