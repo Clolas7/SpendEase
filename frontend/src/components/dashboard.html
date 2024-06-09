@@ -56,6 +56,22 @@
             </form>
         </section>
         <section>
+            <h2>Set Spending Quota</h2>
+            <form action="/backend/src/components/set_quota.php" method="POST">
+                <div>
+                    <label for="category_id">Category:</label>
+                    <select id="category_id" name="category_id" required>
+                        <!-- Categories options will be loaded here -->
+                    </select>
+                </div>
+                <div>
+                    <label for="quota_amount">Quota Amount:</label>
+                    <input type="number" id="quota_amount" name="quota_amount" step="0.01" required>
+                </div>
+                <button type="submit">Set Quota</button>
+            </form>
+        </section>
+        <section>
             <form action="/backend/src/delete_and_logout/update_user.php" method="POST">
                 <button type="submit">Update Info</button>
             </form>
